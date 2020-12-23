@@ -2,7 +2,7 @@ import React from "react";
 import Header from "../components/Header"
 import Footer from "../components/Footer"
 import HomePage from "../pages/HomePage"
-import {BrowserRouter,Route,Switch} from "react-router-dom"
+import {HashRouter, Route,Switch} from "react-router-dom"
 import NotFoundPage from "../pages/NotFoundPage";
 import SinglePokemonPage from "../pages/SinglePokemonPage";
 import MyPokemons from "../pages/MyPokemons"
@@ -10,7 +10,7 @@ import MyPokemons from "../pages/MyPokemons"
 
 const AppRouter = () => {
     return(        
-        <BrowserRouter>
+        <HashRouter>
             <Header></Header>  
             <div className="container content">
                 <Switch>
@@ -22,7 +22,7 @@ const AppRouter = () => {
                 </Switch>
             </div>
             <Footer></Footer>
-        </BrowserRouter>
+        </HashRouter>
     )
 }
 export default AppRouter;

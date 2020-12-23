@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer} from 'react';
+import React, { useReducer} from 'react';
 
 import Router from "./routers/Routers"
 
@@ -12,18 +12,20 @@ const App = () => {
 
   const [pokemonMyList, pokemonMyListDispatch] = useReducer(pokemonReducer,[])
   
-  useEffect(()=>{
+  //////////////////////////////////////////////////////////////////////////////////
+  //for local storage uncomment this lines and add useEffect in import react line//
+  /////////////////////////////////////////////////////////////////////////////////
+ /*  useEffect(()=>{
     const pokemonMyList = JSON.parse(localStorage.getItem("pokemonList"))
     pokemonMyListDispatch({type:"POPULATE_MY_POKEMONS", pokemonMyList})
-  },[])
-
-  useEffect(()=>{
+  },[])  
+  useEffect(()=>{    
     localStorage.setItem("pokemonList", JSON.stringify(pokemonMyList)) 
-},[pokemonMyList])
+},[pokemonMyList]) */
 
   return(
     <PokemonContext.Provider value={{pokemonMyList, pokemonMyListDispatch}}> 
-         <Router />
+         <Router/>
     </PokemonContext.Provider>
     
   )
