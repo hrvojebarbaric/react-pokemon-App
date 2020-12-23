@@ -1,4 +1,5 @@
 import React, { Fragment, useContext } from "react"
+import {Link} from "react-router-dom"
 
 import PokemonContext from "../context/pokemon-context"
 import Table from 'react-bootstrap/Table';
@@ -7,7 +8,7 @@ import Button from 'react-bootstrap/Button';
 
 const MyPokemons = (props) => {
 
-    const {pokemonMyList, pokemonMyListDispatch} = useContext(PokemonContext)
+    const {pokemonMyList, pokemonMyListDispatch} = useContext(PokemonContext)     
 
     return(
         
@@ -32,7 +33,7 @@ const MyPokemons = (props) => {
                             (                                                                   
                                 <tr key={item.id}>
                                     <td><img height="100px" alt={item.name} src={item.img} /></td>
-                                    <td className="text-capitalize"><a href={"/pokemon/"+item.id}>{item.name}</a></td>
+                                    <td className="text-capitalize"><Link to={"/pokemon/"+item.id}>{item.name}</Link></td>
                                     <td><span>Weight: {item.weight/10} kg</span> | <span>Height: {item.height/10} m</span></td>
                                     <td><Button variant="danger" onClick={()=>(
                                         pokemonMyListDispatch({

@@ -17,13 +17,13 @@ const App = () => {
     pokemonMyListDispatch({type:"POPULATE_MY_POKEMONS", pokemonMyList})
   },[])
 
-  return(
-    <PokemonContext.Provider value={{pokemonMyList, pokemonMyListDispatch}}>
-       
-       
-          <Router></Router>
+  useEffect(()=>{
+    localStorage.setItem("pokemonList", JSON.stringify(pokemonMyList)) 
+},[pokemonMyList])
 
-                
+  return(
+    <PokemonContext.Provider value={{pokemonMyList, pokemonMyListDispatch}}> 
+         <Router />
     </PokemonContext.Provider>
     
   )

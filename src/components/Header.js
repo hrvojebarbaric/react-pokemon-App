@@ -10,14 +10,9 @@ const Header = () => {
     const {pokemonMyList} = useContext(PokemonContext)
     
     const handleScroll=() => {
-    const offset=window.scrollY;
-        if(offset > 0 ){
-        setScrolled(true);
-        }
-        else{
-        setScrolled(false);
-        }
-    }
+        const offset=window.scrollY;
+        offset > 0? setScrolled(true): setScrolled(false) 
+    } 
     useEffect(() => {
         window.addEventListener('scroll',handleScroll)
     })

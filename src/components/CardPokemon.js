@@ -21,8 +21,7 @@ const CardPokemon = (props) => {
             await Axios.get(props.url, {
                 cancelToken: ourRequest.token
             }).then(function (response) {
-                // handle success
-                console.log(response.data)
+                // handle success                
                 pokemonMyList.map((item)=>{
                     if(item.id===response.data.id) {
                        return response.data["checked"] = item.checked;
@@ -42,11 +41,7 @@ const CardPokemon = (props) => {
         loadData()
         setIsLoaded(false)
         return () => { ourRequest.cancel() }       
-    },[props.url,pokemonMyList]) 
-    
-    useEffect(()=>{
-        localStorage.setItem("pokemonList", JSON.stringify(pokemonMyList)) 
-    },[pokemonMyList])
+    },[props.url,pokemonMyList])   
 
     const addToList = (e) => {        
         if(e.target.checked) {

@@ -9,8 +9,7 @@ import MyPokemons from "../pages/MyPokemons"
 
 
 const AppRouter = () => {
-    return(
-        
+    return(        
         <BrowserRouter>
             <Header></Header>  
             <div className="container content">
