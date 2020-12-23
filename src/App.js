@@ -1,26 +1,31 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useReducer} from 'react';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import Router from "./routers/Routers"
+
+import pokemonReducer from "./reducers/pokemon"
+import PokemonContext from "./context/pokemon-context"
+
+import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+import './styles/app.css';
+
+const App = () => {
+
+  const [pokemonMyList, pokemonMyListDispatch] = useReducer(pokemonReducer,[])
+  
+  useEffect(()=>{
+    const pokemonMyList = JSON.parse(localStorage.getItem("pokemonList"))
+    pokemonMyListDispatch({type:"POPULATE_MY_POKEMONS", pokemonMyList})
+  },[])
+
+  return(
+    <PokemonContext.Provider value={{pokemonMyList, pokemonMyListDispatch}}>
+       
+       
+          <Router></Router>
+
+                
+    </PokemonContext.Provider>
+    
+  )
 }
-
 export default App;
