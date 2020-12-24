@@ -14,10 +14,7 @@ body {
   width: 100%;  
 }
 header {
-  background-image: url(../img/logo.png);
-  background-size: auto 100%;
-  background-repeat: no-repeat;
-  background-position: center;
+
   height:120px;
   width: 100%;
   transition-property: background-color, height, background-position;
@@ -29,6 +26,9 @@ header {
 }
 header a {
   position: relative;
+}
+.logo {
+  height:120px;
 }
 .badge {
   font-size: 100%;
@@ -68,9 +68,8 @@ footer {
   box-shadow: 1px 1px 20px 1px #000;
 }
 @media only screen and (max-width: 768px) {
-  header {
-    background-size: auto 70%;
-    background-position: 50% 0%;
+  .logo {
+    height:80px;
   }
 }
 /* --------------------------- */

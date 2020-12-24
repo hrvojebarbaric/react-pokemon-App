@@ -19,7 +19,9 @@ const MyPokemons = (props) => {
             <div className="container text-center">           
                 <div className="row background-white justify-content-center">               
                     {
-                    <Table bordered responsive>
+                        pokemonMyList.length===0?<h1 className="p-4">You didn't catch a pokemon!</h1>:
+                        
+                        <Table bordered responsive>
                         <thead>
                             <tr>
                             <th>Image</th>
@@ -45,7 +47,8 @@ const MyPokemons = (props) => {
                             )
                         )}
                         </tbody>
-                    </Table>                        
+                    </Table>
+                                            
                     }                    
                 </div>                   
             </div>

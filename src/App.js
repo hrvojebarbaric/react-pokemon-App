@@ -26,8 +26,7 @@ const App = () => {
   return(
     <PokemonContext.Provider value={{pokemonMyList, pokemonMyListDispatch}}> 
          <Router/>
-    </PokemonContext.Provider>
-    
+    </PokemonContext.Provider>    
   )
 }
 export default App;
