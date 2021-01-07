@@ -1,62 +1,45 @@
-import React, { useState, useEffect, useReducer, Fragment } from "react";
+import React, { useState, Fragment } from "react";
 import { Carousel } from 'react-responsive-carousel';
-import Axios from "axios";
-import 'react-responsive-carousel/lib/styles/carousel.min.css';
+import { useHistory, useRouteMatch } from "react-router-dom";
 
-import pokemonReducer from "../reducers/pokemon"
 import PokemonContext from "../context/pokemon-context"
+import {UsefetchData} from "../effects/use-fetchData.effect"
 
 import MainLoader from "../components/MainLoader"
 import LoadMovesPokemon from "../components/LoadMovesPokemon";
 import ImagePokemon from "../components/ImagePokemon";
 import Species from "../components/Species"
+import CustomButton from "../components/CustomButton"
 
-const SinglePokemonPage = (props) => {
-    const [pokemon, jsonDispatch] = useReducer(pokemonReducer,{})
+const SinglePokemonPage = () => {
+    const history = useHistory();  
+    const match = useRouteMatch()
+    //state for loader, sets in custom hook useFetchData
     const [isLoaded, setIsLoaded] = useState(true)
-
-    useEffect(()=>{
-        const ourRequest = Axios.CancelToken.source()
-        setIsLoaded(true)          
-        const loadData = async() => {
-            await Axios.get(`https://pokeapi.co/api/v2/pokemon/${props.match.params.id}`, {
-                cancelToken: ourRequest.token
-            }).then(function (response) {
-                // handle success
-                jsonDispatch({type:"POPULATE_POKEMON", jsonPokemon:response.data})
-                setIsLoaded(false) 
-            }).catch(function (thrown) {
-                if (Axios.isCancel(thrown)) {
-                    console.log('Request canceled', thrown.message);
-                } else {
-                    // handle error
-                }
-            });                          
-        }        
-        loadData()
-        return () => { ourRequest.cancel() }
-    },[props.match.params.id])
+    //load data from url returns single pokemon
+    const singlePokemon = UsefetchData(`https://pokeapi.co/api/v2/pokemon/${match.params.id}`,setIsLoaded)
+     
     return (
-    <PokemonContext.Provider value={{pokemon}}>        
+    <PokemonContext.Provider value={{singlePokemon}}>        
     {
         isLoaded?<MainLoader></MainLoader>:
         <Fragment>
             <div className="buttons-next-prev">
-                <button className="fs-2 fw-bold btn btn-warning" onClick={()=>{ props.history.goBack() }}>Back</button>
-             </div>
+                <CustomButton buttonText={"Back"} onClickButton={()=>history.goBack()} />
+            </div>
             <div className="container text-center">           
                 <div className="row background-white margin-row-t justify-content-center">               
                     <div className="col-12 d-flex justify-content-center pokemon-image mb-4">
-                        <ImagePokemon></ImagePokemon>                      
+                        <ImagePokemon pokemon={singlePokemon}></ImagePokemon>                      
                     </div>               
-                    <div className="col-12"> <h1 className="text-capitalize text-center">{pokemon.name}</h1> </div>
+                    <div className="col-12"> <h1 className="text-capitalize text-center">{singlePokemon.name}</h1> </div>
                     <div className="col-12 py-4 type-line-bottom"> 
-                        <p>Experience gained for defeating this Pokémon: {pokemon.base_experience&&pokemon.base_experience}</p>
+                        <p>Experience gained for defeating this Pokémon: {singlePokemon.base_experience}</p>
                         <div className="d-md-flex py-4">
                             <div className="col-12 col-md-6">
                                 <div className="d-flex justify-content-center">
                                     {
-                                        pokemon.types&&pokemon.types.map((item, i, arr)=>{                                    
+                                        singlePokemon.types.map((item, i, arr)=>{                                    
                                             if (arr.length - 1 === i) {
                                                 return (<span className="type-span" key={item.type.name}>
                                                 {item.type.name}
@@ -71,7 +54,7 @@ const SinglePokemonPage = (props) => {
                                 <p className="type-desc">Type</p>
                             </div>    
                             <div className="col-12 col-md-6 type-line-left">
-                                <span className="type-span">{pokemon.weight&&pokemon.weight/10}</span><span className="type-desc"> kg</span>
+                                <span className="type-span">{singlePokemon.weight/10}</span><span className="type-desc"> kg</span>
                                 <p className="type-desc">Weight</p> 
                             </div>                                                                
                         </div>
@@ -79,7 +62,7 @@ const SinglePokemonPage = (props) => {
                             <div className="col-12 col-md-6">
                                 <div className="d-flex justify-content-center">
                                     {
-                                        pokemon.types&&pokemon.abilities.map((item, i, arr)=>{                                   
+                                        singlePokemon.abilities.map((item, i, arr)=>{                                   
                                             
                                             if (arr.length - 1 === i) {
                                                 return (<span className="type-span" key={item.ability.name}>
@@ -96,7 +79,7 @@ const SinglePokemonPage = (props) => {
                                 <p className="type-desc">Ability</p>
                             </div>
                             <div className="col-12 col-md-6 type-line-left">                            
-                                <span className="type-span">{pokemon.height&&pokemon.height/10}</span><span className="type-desc"> m</span>
+                                <span className="type-span">{singlePokemon.height/10}</span><span className="type-desc"> m</span>
                                 <p className="type-desc">Height</p>
                             </div> 
                         </div>                    
@@ -104,7 +87,7 @@ const SinglePokemonPage = (props) => {
                     <div className="col-12 py-4 type-line-bottom">
                         <h3 className="pb-4">Stats</h3>
                         <div className="row">
-                            {pokemon.stats&&pokemon.stats.map((item)=>(
+                            {singlePokemon.stats.map((item)=>(
                                 <div className="col-12 d-flex" key={item.stat.name}>
                                     <div className="col-3 text-right text-capitalize">
                                         <p className="type-desc">{item.stat.name}</p>
@@ -133,7 +116,7 @@ const SinglePokemonPage = (props) => {
                         <div className="row">
                             <Carousel className="moves-slider" showThumbs={false} showIndicators={false}>
                                 {
-                                    pokemon.moves&&pokemon.moves.map((item)=>(
+                                    singlePokemon.moves.map((item)=>(
                                         <div className="col-12 col-md-10" key={item.move.name}>
                                             <LoadMovesPokemon url={item.move.url}></LoadMovesPokemon>
                                         </div>                                  

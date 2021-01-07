@@ -1,49 +1,27 @@
-import React, { Fragment, useContext, useEffect, useReducer, useState } from "react"
-import Axios from "axios"
-import pokemonReducer from "../reducers/pokemon"
+import React, { Fragment, useContext, useState } from "react"
 import PokemonContext from "../context/pokemon-context"
 
 import Loader from "./Loader"
 import Evolution from "./Evolution"
 
+import {UsefetchData} from "../effects/use-fetchData.effect"
+
 const Species = () => {
-    const [jsonSpecies, jsonDispatch] = useReducer(pokemonReducer,{})
-    const [isLoaded, setIsLoaded] = useState(true)
-
-    const {pokemon} = useContext(PokemonContext)
-
-    useEffect(()=>{
-        const ourRequest = Axios.CancelToken.source()
-        setIsLoaded(true)
-        const loadData = async() => {
-            await Axios.get(pokemon.species.url, {
-                cancelToken: ourRequest.token
-            }).then(function(respons) {
-                //handle success
-                jsonDispatch({type:"POPULATE_SPECIES", jsonSpecies:respons.data})
-                setIsLoaded(false)
-            }).catch(function(thrown) {
-                if(Axios.isCancel(thrown)) {
-                    console.log("Request canceled", thrown.message)
-                }
-                else {
-                    //handle error
-                }
-            })
-        }
-        loadData()
-        return () => {ourRequest.cancel()}
-    },[pokemon.species.url])
+    const {singlePokemon} = useContext(PokemonContext)
+     //state for loader, sets in custom hook useFetchData
+    const [isLoaded, setIsLoaded] = useState(true)    
+    //load data from url returns species
+    const speciesPokemon = UsefetchData(singlePokemon.species.url,setIsLoaded)    
 
     return(
-        <PokemonContext.Provider value={{jsonSpecies}}>
+        <PokemonContext.Provider value={{speciesPokemon,singlePokemon}}>
         {
             isLoaded?<Loader></Loader>:
             <Fragment>
                 <div className="col-12 col-md-4">
                     <div className="d-flex justify-content-center">
                         <span className="type-span">
-                            {jsonSpecies.base_happiness&&jsonSpecies.base_happiness}
+                            {speciesPokemon.base_happiness}
                         </span>
                     </div>                        
                     <p className="type-desc">Base happiness</p>
@@ -51,7 +29,7 @@ const Species = () => {
                 <div className="col-12 col-md-4 type-line-x">
                     <div className="d-flex justify-content-center">
                         <span className="type-span">
-                            {jsonSpecies.capture_rate&&jsonSpecies.capture_rate}
+                            {speciesPokemon.capture_rate}
                         </span>
                     </div>                        
                     <p className="type-desc">Catch rate</p>
@@ -59,7 +37,7 @@ const Species = () => {
                 <div className="col-12 col-md-4">
                     <div className="d-flex justify-content-center">
                         <span className="type-span">
-                            {jsonSpecies.growth_rate&&jsonSpecies.growth_rate.name}
+                            {speciesPokemon.growth_rate.name}
                         </span>
                     </div>                        
                     <p className="type-desc">Growth rate</p>

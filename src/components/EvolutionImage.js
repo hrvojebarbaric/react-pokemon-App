@@ -1,44 +1,22 @@
-import React, {useState,useEffect,Fragment} from "react"
-import Axios from "axios"
+import React, {useState,Fragment} from "react"
 
 import LoaderImage from "./Loader"
-import imgNotFound from '../img/no-image.png';
+import ImagePokemon from "./ImagePokemon"
 
-const EvolutionImage = (props) => {
-    const [pokemon, setPokemon] = useState({})
+import {UsefetchData} from "../effects/use-fetchData.effect"
+
+const EvolutionImage = ({url}) => {
+     //state for loader, sets in custom hook useFetchData
     const [isLoaded, setIsLoaded] = useState(true)
-
-    useEffect(()=>{
-        const ourRequest = Axios.CancelToken.source()
-        setIsLoaded(true)          
-        const loadData = async() => {
-            await Axios.get(props.url, {
-                cancelToken: ourRequest.token
-            }).then(function (response) {
-                // handle success                
-                setPokemon(response.data)
-            }).catch(function (thrown) {
-                if (Axios.isCancel(thrown)) {
-                    console.log('Request canceled', thrown.message);
-                } else {
-                    // handle error
-                }
-            });                          
-        }        
-        loadData()
-        setIsLoaded(false)
-        return () => { ourRequest.cancel() }       
-    },[props.url])   
+    //load data with custom hook useFetchData from url and returns single pokemon
+    const pokemon = UsefetchData(url,setIsLoaded)
        
     return(            
         <Fragment>
             {
-                isLoaded?<LoaderImage></LoaderImage>:pokemon.sprites && 
+                isLoaded?<LoaderImage></LoaderImage>:
                 <Fragment> 
-                        <img className="img-home" src={
-                            pokemon.sprites.other["official-artwork"].front_default ? pokemon.sprites.other["official-artwork"].front_default :
-                            imgNotFound
-                        } alt={pokemon.name}/>                    
+                        <ImagePokemon pokemonClass={"img-home"} pokemon={pokemon}></ImagePokemon>                     
                         <div className="col-12">
                             <div className="d-flex justify-content-center">
                                 {pokemon.types&&pokemon.types.map((item, i, arr)=>{
@@ -62,5 +40,4 @@ const EvolutionImage = (props) => {
         </Fragment>
     )
 }
-
 export default EvolutionImage

@@ -1,36 +1,16 @@
-import React, {useState,useEffect} from "react"
-import Axios from "axios";
+import React, {useState} from "react"
+import {UsefetchData} from "../effects/use-fetchData.effect"
 
 import LoaderImage from "./Loader"
 
-const LoadMovesPokemon = (props) => {
-    const [moves, setMoves] = useState({})
+const LoadMovesPokemon = ({url}) => {
+    //state for loader, sets in custom hook useFetchData
     const [isLoaded, setIsLoaded] = useState(true)
-
-    useEffect(()=>{
-        const ourRequest = Axios.CancelToken.source()
-        setIsLoaded(true)          
-        const loadData = async() => {
-            await Axios.get(props.url, {
-                cancelToken: ourRequest.token
-            }).then(function (response) {
-                // handle success
-                setMoves(response.data)
-                setIsLoaded(false) 
-            }).catch(function (thrown) {
-                if (Axios.isCancel(thrown)) {
-                    console.log('Request canceled', thrown.message);
-                } else {
-                    // handle error
-                }
-            });                          
-        }        
-        loadData()
-        return () => { ourRequest.cancel() }
-    },[props.url])
+    //load data from url returns evolution
+    const moves = UsefetchData(url,setIsLoaded)    
 
     return(            
-            isLoaded?<LoaderImage></LoaderImage>:moves&& 
+            isLoaded?<LoaderImage></LoaderImage>:
             <div>
                 <div className="py-2">
                     <span className="text-capitalize type-span">{moves.name}</span>    
@@ -39,7 +19,7 @@ const LoadMovesPokemon = (props) => {
                 <div className="">
                     <span className="text-effect type-span"> 
                     {
-                            moves.effect_entries&&moves.effect_entries.map((item)=>(
+                            moves.effect_entries.map((item)=>(
                                 item.short_effect.replace("$effect_chance", moves.effect_chance)
                             )
                         )

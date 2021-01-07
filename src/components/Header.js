@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react"
 
 import {Link} from "react-router-dom"
-import PokemonContext from "../context/pokemon-context"
+import {PokemonContext} from "../providers/myPokemonsProvider"
 import Badge from 'react-bootstrap/Badge';
 import pokeBall from '../img/PngItem_25193.png';
 import logo from '../img/logo.png';

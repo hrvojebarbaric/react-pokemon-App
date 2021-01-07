@@ -1,32 +1,36 @@
-import React, { useReducer} from 'react';
+import React from 'react';
 
-import Router from "./routers/Routers"
-
-import pokemonReducer from "./reducers/pokemon"
-import PokemonContext from "./context/pokemon-context"
+import MyPokemonProvider from "./providers/myPokemonsProvider"
 
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import './styles/app.css';
 
-const App = () => {
+import Header from "./components/Header"
+import Footer from "./components/Footer"
+import HomePage from "./pages/HomePage"
+import {BrowserRouter, Route,Switch} from "react-router-dom"
+import NotFoundPage from "./pages/NotFoundPage";
+import SinglePokemonPage from "./pages/SinglePokemonPage";
+import MyPokemons from "./pages/MyPokemons"
 
-  const [pokemonMyList, pokemonMyListDispatch] = useReducer(pokemonReducer,[])
-  
-  //////////////////////////////////////////////////////////////////////////////////
-  //for local storage uncomment this lines and add useEffect in import react line//
-  /////////////////////////////////////////////////////////////////////////////////
- /*  useEffect(()=>{
-    const pokemonMyList = JSON.parse(localStorage.getItem("pokemonList"))
-    pokemonMyListDispatch({type:"POPULATE_MY_POKEMONS", pokemonMyList})
-  },[])  
-  useEffect(()=>{    
-    localStorage.setItem("pokemonList", JSON.stringify(pokemonMyList)) 
-},[pokemonMyList]) */
-
+const App = () => {  
   return(
-    <PokemonContext.Provider value={{pokemonMyList, pokemonMyListDispatch}}> 
-         <Router/>
-    </PokemonContext.Provider>    
+    <MyPokemonProvider> 
+    <BrowserRouter>
+        <Header></Header>  
+        <div className="container content">
+            <Switch>
+                <Route path="/" component={HomePage} exact={true}></Route>
+                <Route path="/mypokemons" component={MyPokemons} ></Route>
+                <Route path="/page/:page" component={HomePage}></Route>
+                <Route path="/pokemon/:id" component={SinglePokemonPage}></Route>                
+                <Route component={NotFoundPage}></Route>
+            </Switch>
+        </div>
+        <Footer></Footer>
+    </BrowserRouter>
+    </MyPokemonProvider>    
   )
 }
 export default App;

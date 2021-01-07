@@ -1,20 +1,21 @@
 import React, { Fragment, useContext } from "react"
-import {Link} from "react-router-dom"
+import { useHistory, Link } from "react-router-dom";
 
-import PokemonContext from "../context/pokemon-context"
+import { PokemonContext } from "../providers/myPokemonsProvider"
+
 import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
 
+import CustomButton from "../components/CustomButton"
 
-const MyPokemons = (props) => {
 
-    const {pokemonMyList, pokemonMyListDispatch} = useContext(PokemonContext)     
-
-    return(
-        
+const MyPokemons = () => {
+    const { pokemonMyList, removePokemon } = useContext(PokemonContext)     
+    const history = useHistory();
+    return(        
         <Fragment>
             <div className="buttons-next-prev">
-                <button className="fs-2 fw-bold btn btn-warning" onClick={()=>{ props.history.goBack() }}>Back</button>
+                <CustomButton buttonText={"Back"} onClickButton={()=>history.goBack()} />
             </div>
             <div className="container text-center">           
                 <div className="row background-white justify-content-center">               
@@ -38,10 +39,7 @@ const MyPokemons = (props) => {
                                     <td className="text-capitalize"><Link to={"/pokemon/"+item.id}>{item.name}</Link></td>
                                     <td><span>Weight: {item.weight/10} kg</span> | <span>Height: {item.height/10} m</span></td>
                                     <td><Button variant="danger" onClick={()=>(
-                                        pokemonMyListDispatch({
-                                            type:"REMOVE_MY_POKEMONS",
-                                            id: item.id               
-                                        })
+                                        removePokemon(item)
                                     )}>X</Button></td>
                                 </tr>                                
                             )
