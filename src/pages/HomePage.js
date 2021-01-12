@@ -11,15 +11,13 @@ const HomePage = () => {
   const history = useHistory();
   const match = useRouteMatch();
 
-  const [numberOnPage, setNumberOnPage] = useState(+match.params.page);
+  const [numberOnPage, setNumberOnPage] = useState(+match.params.page || 1);
   const [pageUrl, setPageUrl] = useState(
     "https://pokeapi.co/api/v2/pokemon/?offset=" + (numberOnPage - 1) * 20
   );
   const [isLoaded, setIsLoaded] = useState(true);
   const [numberOfPages, setNumberOfPages] = useState();
   const listOfPokemons = useFetchData(pageUrl, setIsLoaded, setNumberOfPages);
-
-  isNaN(numberOnPage) && setNumberOnPage(1);
 
   const listOfPokemonsNextPrev = debounce((linkId, num) => {
     setNumberOnPage(linkId);
