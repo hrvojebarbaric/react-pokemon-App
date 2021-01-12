@@ -1,36 +1,36 @@
-import React from 'react';
+import React from "react";
 
-import MyPokemonProvider from "./providers/myPokemonsProvider"
+import MyPokemonProvider from "./providers/myPokemonsProvider";
 
-import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
-import 'react-responsive-carousel/lib/styles/carousel.min.css';
-import './styles/app.css';
+import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+import "./styles/app.css";
 
-import Header from "./components/Header"
-import Footer from "./components/Footer"
-import HomePage from "./pages/HomePage"
-import {BrowserRouter, Route,Switch} from "react-router-dom"
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+import HomePage from "./pages/HomePage";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 import NotFoundPage from "./pages/NotFoundPage";
 import SinglePokemonPage from "./pages/SinglePokemonPage";
-import MyPokemons from "./pages/MyPokemons"
+import MyPokemons from "./pages/MyPokemons";
 
-const App = () => {  
-  return(
-    <MyPokemonProvider> 
-    <BrowserRouter>
-        <Header></Header>  
+const App = () => {
+  return (
+    <MyPokemonProvider>
+      <BrowserRouter>
+        <Header></Header>
         <div className="container content">
-            <Switch>
-                <Route path="/" component={HomePage} exact={true}></Route>
-                <Route path="/mypokemons" component={MyPokemons} ></Route>
-                <Route path="/page/:page" component={HomePage}></Route>
-                <Route path="/pokemon/:id" component={SinglePokemonPage}></Route>                
-                <Route component={NotFoundPage}></Route>
-            </Switch>
+          <Switch>
+            <Route path="/" component={HomePage} exact={true}></Route>
+            <Route path="/mypokemons" component={MyPokemons}></Route>
+            <Route path="/page/:page" component={HomePage}></Route>
+            <Route path="/pokemon/:id" component={SinglePokemonPage}></Route>
+            <Route component={NotFoundPage}></Route>
+          </Switch>
         </div>
         <Footer></Footer>
-    </BrowserRouter>
-    </MyPokemonProvider>    
-  )
-}
+      </BrowserRouter>
+    </MyPokemonProvider>
+  );
+};
 export default App;

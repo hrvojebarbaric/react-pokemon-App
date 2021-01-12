@@ -1,13 +1,11 @@
-import React from "react"
+import React from "react";
 
-import Spinner from 'react-bootstrap/Spinner'
+import Loader from "./Loader";
 
 const MainLoader = () => (
-    <div className="main-loader">
-        <p>Loading...</p>
-        <Spinner className="main-spinner" animation="border" role="status">
-            <span className="sr-only">Loading...</span>
-        </Spinner>
-    </div>    
-)
+  <div className="main-loader">
+    <p>Loading...</p>
+    <Loader loaderClass={"main-spinner"} />    
+  </div>
+);
 export default MainLoader;

@@ -1,41 +1,40 @@
-@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;700&display=swap");
 
 body {
   background-image: url(../img/bck.jpg);
   background-repeat: no-repeat;
   background-size: cover;
-  font-family: 'Comfortaa', cursive;
+  font-family: "Comfortaa", cursive;
   background-attachment: fixed;
   overflow-y: scroll;
   min-height: 100vh;
- }
- .header-outer {
-  height:150px;
-  width: 100%;  
+}
+.header-outer {
+  height: 150px;
+  width: 100%;
 }
 header {
-
-  height:120px;
+  height: 120px;
   width: 100%;
   transition-property: background-color, height, background-position;
   transition-duration: 0.5s;
   -webkit-transition-property: background-color, height, background-position;
   -webkit-transition-duration: 0.5s;
-  background-color:rgba(255,255,255,0.3);
-  box-shadow: 1px 1px 20px 1px #000;  
+  background-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 1px 1px 20px 1px #000;
 }
 header a {
   position: relative;
 }
 .logo {
-  height:120px;
+  height: 120px;
 }
 .badge {
   font-size: 100%;
   border-radius: 15px;
   position: absolute;
   left: -10px;
-  top:-5px;
+  top: -5px;
 }
 .poke-ball {
   height: 50px;
@@ -44,16 +43,16 @@ header a {
   flex-grow: 1;
 }
 #root {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 .header-outer,
 footer {
-    flex-shrink: 0;
+  flex-shrink: 0;
 }
 footer {
-  height:75px;
+  height: 75px;
   width: 100%;
   background-color: #fff;
   margin-top: 30px;
@@ -62,14 +61,14 @@ footer {
   position: fixed;
   top: 0;
   width: 100%;
-  height:120px;
+  height: 120px;
   z-index: 100;
-  background-color:rgba(255,255,255,0.9);
+  background-color: rgba(255, 255, 255, 0.9);
   box-shadow: 1px 1px 20px 1px #000;
 }
 @media only screen and (max-width: 768px) {
   .logo {
-    height:80px;
+    height: 80px;
   }
 }
 /* --------------------------- */
@@ -87,8 +86,8 @@ footer {
 }
 .main-loader p {
   position: absolute;
-  top:30%;
-  left:25%;
+  top: 30%;
+  left: 25%;
   font-weight: 700;
   font-size: xx-large;
 }
@@ -96,22 +95,22 @@ footer {
   position: absolute;
   width: 80px;
   height: 80px;
-  top:50%;
-  left:40%;
+  top: 50%;
+  left: 40%;
   border: 1em solid currentColor;
   border-right-color: transparent;
 }
 .spinner {
   position: absolute;
-  top:40%;
-  left:calc(50% - 15px);
+  top: 40%;
+  left: calc(50% - 15px);
 }
 /* --------------------------- */
 /*  Buttons on home page */
 /* --------------------------- */
 .buttons-next-prev {
   position: fixed;
-  top:45px;
+  top: 45px;
   z-index: 110;
 }
 .buttons-next-prev span {
@@ -137,20 +136,24 @@ footer {
   }
   .buttons-next-prev {
     position: fixed;
-    top:75px;
+    top: 75px;
     z-index: 110;
   }
 }
 /* --------------------------- */
- /* Pokemon card on home page */
- /* --------------------------- */
+/* Pokemon card on home page */
+/* --------------------------- */
 .pokemon-item {
-  background: linear-gradient(0deg, rgba(255,255,255,0.7) 0%, rgba(255,255,255,0) 70%);
+  background: linear-gradient(
+    0deg,
+    rgba(255, 255, 255, 0.7) 0%,
+    rgba(255, 255, 255, 0) 70%
+  );
   padding: 15px;
   min-height: 314px;
   min-width: 250px;
-  margin: 15px auto;  
-  border-radius:10px;
+  margin: 15px auto;
+  border-radius: 10px;
   position: relative;
   font-weight: 700;
   color: #ffde00;
@@ -159,7 +162,11 @@ footer {
   box-shadow: 1px 1px 20px 1px #000;
 }
 .pokemon-item:hover {
-  background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 80%);
+  background: linear-gradient(
+    0deg,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(255, 255, 255, 0) 80%
+  );
   text-decoration: none;
   font-weight: 700;
   color: #ffde00;
@@ -183,35 +190,36 @@ footer {
   z-index: 10;
   display: block;
 }
-.custom-switch:hover, .custom-control-label:hover {
+.custom-switch:hover,
+.custom-control-label:hover {
   cursor: pointer;
 }
-.custom-control-input:focus~.custom-control-label::before {
+.custom-control-input:focus ~ .custom-control-label::before {
   border-color: #ffde00 !important;
   box-shadow: 0 0 0 0 rgba(255, 47, 69, 0.25) !important;
 }
 
-.custom-control-input:checked~.custom-control-label::before {
+.custom-control-input:checked ~ .custom-control-label::before {
   border-color: #ffde00 !important;
   background-color: #ffde00 !important;
-  
 }
 
-.custom-control-input:active~.custom-control-label::before {
-  background-color: #ffde00 !important;
-  border-color: #ffde00 !important;
-}
-
-.custom-control-input:focus:not(:checked)~.custom-control-label::before {
-  border-color: #ffde00 !important;
-}
-
-.custom-control-input-green:not(:disabled):active~.custom-control-label::before {
+.custom-control-input:active ~ .custom-control-label::before {
   background-color: #ffde00 !important;
   border-color: #ffde00 !important;
 }
-.custom-switch .custom-control-input:checked~.custom-control-label::after {
-  background-color: #000!important;
+
+.custom-control-input:focus:not(:checked) ~ .custom-control-label::before {
+  border-color: #ffde00 !important;
+}
+
+.custom-control-input-green:not(:disabled):active
+  ~ .custom-control-label::before {
+  background-color: #ffde00 !important;
+  border-color: #ffde00 !important;
+}
+.custom-switch .custom-control-input:checked ~ .custom-control-label::after {
+  background-color: #000 !important;
 }
 /* --------------------------- */
 /*  Single Pokemon page */
@@ -276,17 +284,19 @@ footer {
 .speed {
   background-color: #b3a125;
 }
-.attack, .special-attack {
+.attack,
+.special-attack {
   background-color: #cc0000;
 }
-.defense, .special-defense {
+.defense,
+.special-defense {
   background-color: #3b4cca;
 }
 /*evolution*/
 .evolution-arrow {
   font-size: xx-large;
 }
-@media only screen and (max-width: 1200px) {  
+@media only screen and (max-width: 1200px) {
   .evolution-arrow {
     -webkit-transform: rotate(90deg);
     -moz-transform: rotate(90deg);
@@ -325,22 +335,22 @@ footer {
   padding: 5px;
   opacity: 1;
   width: 50px;
-  height: 50px; 
-  background-color: #ffde00; 
+  height: 50px;
+  background-color: #ffde00;
   box-shadow: 1px 1px 10px 1px #000;
 }
 .carousel.carousel-slider .control-arrow:hover {
-  background: none; 
+  background: none;
   background-color: #ffde00;
 }
 .carousel .control-next.control-arrow {
-  right:3%;
+  right: 3%;
 }
 .carousel .control-prev.control-arrow {
-  left:3%;
+  left: 3%;
 }
 .carousel .control-next.control-arrow:before {
-  border-left: 8px solid #000;    
+  border-left: 8px solid #000;
 }
 .carousel .control-prev.control-arrow:before {
   border-right: 8px solid #000;
@@ -350,7 +360,7 @@ footer {
   display: flex;
 }
 .margin-moves {
-  margin:15px 0;
+  margin: 15px 0;
 }
 
 @media only screen and (max-width: 768px) {
@@ -362,8 +372,8 @@ footer {
     padding: 5px;
     opacity: 1;
     width: 50px;
-    height: 50px; 
-    background-color: #ffde00; 
+    height: 50px;
+    background-color: #ffde00;
     box-shadow: 1px 1px 10px 1px #000;
   }
   .carousel .carousel-status {
@@ -375,5 +385,5 @@ table a {
   color: #b3a125;
 }
 table td {
-  vertical-align: middle!important;
+  vertical-align: middle !important;
 }

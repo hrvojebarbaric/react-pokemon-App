@@ -1,5 +1,5 @@
-import React from "react"
+import React from "react";
 
-const PokemonContext = React.createContext()
+const PokemonContext = React.createContext();
 
-export default PokemonContext
+export default PokemonContext;
