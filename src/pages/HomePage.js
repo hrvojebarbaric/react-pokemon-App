@@ -1,6 +1,6 @@
 import React, { useState, Fragment } from "react";
 import debounce from "lodash.debounce";
-import { useHistory, useRouteMatch } from "react-router-dom";
+import { useHistory, useRouteMatch, Redirect } from "react-router-dom";
 import { useFetchData } from "../hooks/use-fetchData.effect";
 
 import CardPokemon from "../components/CardPokemon";
@@ -29,6 +29,8 @@ const HomePage = () => {
 
   return isLoaded ? (
     <MainLoader />
+  ) : match.params.page < 1 || match.params.page > numberOfPages ? (
+    <Redirect to="/page-not-found" />
   ) : (
     <Fragment>
       <div className="buttons-next-prev">

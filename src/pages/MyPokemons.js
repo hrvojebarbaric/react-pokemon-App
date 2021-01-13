@@ -14,10 +14,7 @@ const MyPokemons = () => {
   return (
     <Fragment>
       <div className="buttons-next-prev">
-        <CustomButton
-          buttonText={"Back"}
-          onClickButton={() => history.goBack()}
-        />
+        <CustomButton buttonText={"Back"} onClick={() => history.goBack()} />
       </div>
       <div className="container text-center">
         <div className="row background-white justify-content-center">

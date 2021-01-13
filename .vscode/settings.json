@@ -1,0 +1,9 @@
+{
+    "html.autoClosingTags": false,
+    "typescript.tsc.autoDetect": "off",
+    "javascript.format.enable": false,
+    "javascript.validate.enable": false,
+    "javascript.autoClosingTags": false,
+    "javascript.format.insertSpaceAfterSemicolonInForStatements": false,
+    "javascript.suggest.autoImports": false
+}

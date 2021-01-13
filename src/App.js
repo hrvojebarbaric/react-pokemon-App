@@ -22,9 +22,17 @@ const App = () => {
         <div className="container content">
           <Switch>
             <Route path="/" component={HomePage} exact={true}></Route>
-            <Route path="/mypokemons" component={MyPokemons}></Route>
-            <Route path="/page/:page" component={HomePage}></Route>
-            <Route path="/pokemon/:id" component={SinglePokemonPage}></Route>
+            <Route
+              path="/mypokemons"
+              component={MyPokemons}
+              exact={true}
+            ></Route>
+            <Route path="/page/:page" component={HomePage} exact={true}></Route>
+            <Route
+              path="/pokemon/:id"
+              component={SinglePokemonPage}
+              exact={true}
+            ></Route>
             <Route component={NotFoundPage}></Route>
           </Switch>
         </div>
